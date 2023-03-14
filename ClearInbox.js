@@ -7,19 +7,29 @@ function LoadConfiguration() {
   var items = [];
 
   data.forEach(function (row) {
-    var element={ 'Mask': row[0], 'Operator': row[1], 'Action': row[2] }
+    var element = { 'Mask': row[0], 'Operator': row[1], 'Action': row[2] }
     items.push(element);
   });
   return items;
 }
 
-function DoEqualsWork(subject, configurationItem) {
-  if (subject == configurationItem.Mask) {
-    Logger.Log("Wooho")
+function DoActionOnThread(thread, configurationItem) {
+  switch (configurationItem.Action) {
+    case 'Archive':
+      thread.moveToArchive();
+      return;
   }
 }
 
-function DoActionOnThread(subject, configuration) {
+function DoEqualsWork(thread, configurationItem) {
+  var subject = thread.getFirstMessageSubject();
+  if (subject == configurationItem.Mask) {
+    Logger.log("Found matching rule")
+    DoActionOnThread(thread, configurationItem);
+  }
+}
+
+function DoOperatorOnThread(subject, configuration) {
   for (var i = 0; i < configuration.length; i++) {
     switch (configuration[i].Operator) {
       case 'Equals':
@@ -34,17 +44,6 @@ function myFunction() {
 
   var threads = GmailApp.getInboxThreads();
   for (var i = 0; i < threads.length; i++) {
-    DoActionOnThread(threads[i].getFirstMessageSubject(),configuration)
-    // var subject = threads[i].getFirstMessageSubject()
-    // Logger.log(subject);
-    // if (subjectsToArchive.includes(subject)) {
-    //   //threads[i].moveToArchive();
-    // }
-    // for (var j = 0; j < subjectsStartToArchive.length; j++) {
-    //   if (subject.startsWith(subjectsStartToArchive[j])) {
-    //     threads[i].moveToArchive();
-    //   }
-    // }
+    DoOperatorOnThread(threads[i], configuration)
   }
-
 }
