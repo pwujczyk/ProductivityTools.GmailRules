@@ -16,7 +16,12 @@ function LoadConfiguration() {
 function DoActionOnThread(thread, configurationItem) {
   switch (configurationItem.Action) {
     case 'Archive':
+      Logger.log("Moving thread to Archive: " + thread.getFirstMessageSubject());
       thread.moveToArchive();
+      return;
+    case 'Delete':
+      Logger.log("Removing thread: " + thread.getFirstMessageSubject());
+      thread.moveToTrash();
       return;
   }
 }
@@ -24,6 +29,13 @@ function DoActionOnThread(thread, configurationItem) {
 function DoEqualsWork(thread, configurationItem) {
   var subject = thread.getFirstMessageSubject();
   if (subject == configurationItem.Mask) {
+    DoActionOnThread(thread, configurationItem);
+  }
+}
+
+function DoStartsWithWork(thread, configurationItem) {
+  var subject = thread.getFirstMessageSubject();
+  if (subject.startsWith(configurationItem.Mask)) {
     Logger.log("Found matching rule")
     DoActionOnThread(thread, configurationItem);
   }
@@ -34,6 +46,9 @@ function DoOperatorOnThread(subject, configuration) {
     switch (configuration[i].Operator) {
       case 'Equals':
         DoEqualsWork(subject, configuration[i]);
+        break;
+      case 'StartsWith':
+        DoStartsWithWork(subject, configuration[i]);
         break;
     }
   }
