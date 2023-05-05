@@ -36,7 +36,13 @@ function DoEqualsWork(thread, configurationItem) {
 function DoStartsWithWork(thread, configurationItem) {
   var subject = thread.getFirstMessageSubject();
   if (subject.startsWith(configurationItem.Mask)) {
-    Logger.log("Found matching rule")
+    DoActionOnThread(thread, configurationItem);
+  }
+}
+
+function DoContainsWork(thread, configurationItem) {
+  var subject = thread.getFirstMessageSubject();
+  if (subject.includes(configurationItem.Mask)) {
     DoActionOnThread(thread, configurationItem);
   }
 }
@@ -50,11 +56,15 @@ function DoOperatorOnThread(subject, configuration) {
       case 'StartsWith':
         DoStartsWithWork(subject, configuration[i]);
         break;
+      case 'Contains':
+        DoContainsWork(subject, configuration[i]);
+        break;
+         
     }
   }
 }
 
-function myFunction() {
+function doGet() {
   var configuration = LoadConfiguration();
 
   var threads = GmailApp.getInboxThreads();

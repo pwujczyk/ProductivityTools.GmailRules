@@ -9,7 +9,7 @@
     </a>
 </p>
 
-# ProductivityTools.GmailRules
+# Gmail Rules
 
 Google App Script which I created to clear the Gmail inbox after vacations. 
 
