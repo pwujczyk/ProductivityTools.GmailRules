@@ -47,28 +47,34 @@ function DoContainsWork(thread, configurationItem) {
   }
 }
 
-function DoOperatorOnThread(subject, configuration) {
+function DoOperatorOnThread(subject, configuration,result) { 
   for (var i = 0; i < configuration.length; i++) {
     switch (configuration[i].Operator) {
       case 'Equals':
+        result+="Equals on" + subject;
         DoEqualsWork(subject, configuration[i]);
         break;
       case 'StartsWith':
+       result+="StartsWith on" + subject;
         DoStartsWithWork(subject, configuration[i]);
         break;
       case 'Contains':
+       result+="Contains on" + subject;
         DoContainsWork(subject, configuration[i]);
         break;
          
     }
   }
+  return result;
 }
 
 function doGet() {
   var configuration = LoadConfiguration();
 
   var threads = GmailApp.getInboxThreads();
+  var result="Result:"
   for (var i = 0; i < threads.length; i++) {
-    DoOperatorOnThread(threads[i], configuration)
+    DoOperatorOnThread(threads[i], configuration,result)
   }
+  return ContentService.createTextOutput(result);
 }
