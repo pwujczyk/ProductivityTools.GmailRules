@@ -1,6 +1,6 @@
 <!--Category:GAS--> 
  <p align="right">
-    <a href="http://productivitytools.tech/"><img src="Images/Header/ProductivityTools_green_40px_2.png" /><a> 
+    <a href="http://productivitytools.top/gmail-rules/"><img src="Images/Header/ProductivityTools_green_40px_2.png" /><a> 
     <a href="https://github.com/pwujczyk/ProductivityTools.GmailRules"><img src="Images/Header/Github_border_40px.png" /></a>
 </p>
 <p align="center">
@@ -12,6 +12,7 @@
 # Gmail Rules
 
 Google App Script which I created to clear the Gmail inbox after vacations. 
+<!--more-->
 
 Every day I am receiving a lot of emails which are handy on given day. If I am out and come back after time off, those emails are not important anymore. This script is archiving or removing emails which were valid in the past but not anymore.
 
