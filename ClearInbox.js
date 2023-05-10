@@ -30,37 +30,40 @@ function DoEqualsWork(thread, configurationItem) {
   var subject = thread.getFirstMessageSubject();
   if (subject == configurationItem.Mask) {
     DoActionOnThread(thread, configurationItem);
+    return "Did *Equals* operation on " + subject +"\n\r";
   }
+  return "";
 }
 
 function DoStartsWithWork(thread, configurationItem) {
   var subject = thread.getFirstMessageSubject();
   if (subject.startsWith(configurationItem.Mask)) {
     DoActionOnThread(thread, configurationItem);
+    return "Did *DoStartsWithWork* operation on" + subject +"\n\r";
   }
+  return "";
 }
 
 function DoContainsWork(thread, configurationItem) {
   var subject = thread.getFirstMessageSubject();
   if (subject.includes(configurationItem.Mask)) {
     DoActionOnThread(thread, configurationItem);
+    return "Did *DoContainsWork* operation on" + subject +"\n\r";
   }
+    return "";
 }
 
 function DoOperatorOnThread(subject, configuration,result) { 
   for (var i = 0; i < configuration.length; i++) {
     switch (configuration[i].Operator) {
       case 'Equals':
-        result+="Equals on" + subject;
-        DoEqualsWork(subject, configuration[i]);
+        result+=DoEqualsWork(subject, configuration[i]);
         break;
       case 'StartsWith':
-       result+="StartsWith on" + subject;
-        DoStartsWithWork(subject, configuration[i]);
+        result+=DoStartsWithWork(subject, configuration[i]);
         break;
       case 'Contains':
-       result+="Contains on" + subject;
-        DoContainsWork(subject, configuration[i]);
+        result+=DoContainsWork(subject, configuration[i]);
         break;
          
     }
@@ -72,9 +75,9 @@ function doGet() {
   var configuration = LoadConfiguration();
 
   var threads = GmailApp.getInboxThreads();
-  var result="Result:"
+  var result="Result:\n\r"
   for (var i = 0; i < threads.length; i++) {
-    DoOperatorOnThread(threads[i], configuration,result)
+    result= DoOperatorOnThread(threads[i], configuration,result)
   }
   return ContentService.createTextOutput(result);
 }
