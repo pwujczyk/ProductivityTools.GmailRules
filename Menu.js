@@ -1,8 +1,8 @@
 function onOpen(e) {
   var ui = SpreadsheetApp.getUi();
   ui.createMenu('CleanInbox')
-      .addItem('PWExecute', 'ExecuteScript')
-      .addItem('Validate rules', 'checkRules')
+      .addItem('Execute for Unprocessed', 'ExecuteForUnprocessed')
+      .addItem('Execute for Inbox', 'ExecuteForInbox')
       .addSeparator()
       .addItem('Set up and start auto processing', 'configureTriggers')
       .addSeparator()
