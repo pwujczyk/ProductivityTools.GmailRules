@@ -27,6 +27,9 @@ Google sheet should contain columns
   - Archive
   - Delete
 - Label
+
+## Important
+- sheet needs to be named "Daily"
   
 
 ![](Images/2023-03-14-16-24-27.png)

@@ -6,13 +6,23 @@ function doGet() {
 
 
 function ExecuteForUnprocessed() {
+  craeteRequiredLabels();
   var threads = getUnprocessedThreads();
   ExecuteScript(threads);
 }
 
 function ExecuteForInbox() {
+  craeteRequiredLabels();
   var threads = GmailApp.getInboxThreads();
   ExecuteScript(threads);
+}
+
+function craeteRequiredLabels() {
+  var labels=["AppScript","AppScript/Unprocessed","AppScriptAuto"]
+  labels.forEach((label)=>{
+  GmailApp.createLabel(label);
+
+  })
 }
 
 function ExecuteScript(threads) {
@@ -60,7 +70,9 @@ function LoadConfiguration() {
 function removeUnprocessed(thread) {
   var labelStringUnprocessed = "AppScript/Unprocessed"
   var labelUnprocessed = GmailApp.getUserLabelByName(labelStringUnprocessed);
-  thread.removeLabel(labelUnprocessed)
+  if (labelUnprocessed) {
+    thread.removeLabel(labelUnprocessed)
+  }
 }
 
 function DoActionOnThread(thread, configurationItem) {
