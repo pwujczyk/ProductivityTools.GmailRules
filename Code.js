@@ -1,5 +1,8 @@
 //https://docs.google.com/spreadsheets/d/1-qb1wmRiDWJTq5n5T3ItkWJmHjU-BhGYFe9e439MFtc/edit#gid=0
 
+const packetName = ".PT.GmailRules"
+const unprocessed = ".PT.GmailRules/Unprocessed"
+
 function doGet() {
   ExecuteForUnprocessed()
 }
@@ -18,9 +21,9 @@ function ExecuteForInbox() {
 }
 
 function craeteRequiredLabels() {
-  var labels=["AppScript","AppScript/Unprocessed","AppScriptAuto"]
-  labels.forEach((label)=>{
-  GmailApp.createLabel(label);
+  var labels = [packetName, unprocessed]
+  labels.forEach((label) => {
+    GmailApp.createLabel(label);
 
   })
 }
@@ -44,7 +47,7 @@ function ExecuteScript(threads) {
 }
 
 function getUnprocessedThreads() {
-  var label = GmailApp.getUserLabelByName("AppScript/Unprocessed");
+  var label = GmailApp.getUserLabelByName(unprocessed);
   var threads = label.getThreads();
   return threads;
 }
@@ -68,8 +71,7 @@ function LoadConfiguration() {
 }
 
 function removeUnprocessed(thread) {
-  var labelStringUnprocessed = "AppScript/Unprocessed"
-  var labelUnprocessed = GmailApp.getUserLabelByName(labelStringUnprocessed);
+  var labelUnprocessed = GmailApp.getUserLabelByName(unprocessed);
   if (labelUnprocessed) {
     thread.removeLabel(labelUnprocessed)
   }
@@ -79,7 +81,7 @@ function DoActionOnThread(thread, configurationItem) {
 
   var subject = thread.getFirstMessageSubject();
   if (configurationItem.Label) {
-    var labelString = "AppScriptAuto/" + configurationItem.Label
+    var labelString = packetName + "/" + configurationItem.Label
     GmailApp.createLabel(labelString);
     let label = GmailApp.getUserLabelByName(labelString);
     label.addToThread(thread);
