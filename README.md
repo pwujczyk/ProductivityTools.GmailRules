@@ -31,3 +31,9 @@ Google sheet should contain columns
 
 ![](Images/2023-03-14-16-24-27.png)
 
+## Direct invocation of CLASP
+
+```
+C:\Users\pwujczyk\AppData\Roaming\npm\clasp.cmd pull
+```
+

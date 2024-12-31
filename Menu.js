@@ -1,12 +1,11 @@
 function onOpen(e) {
   var ui = SpreadsheetApp.getUi();
-  ui.createMenu('CleanInbox')
+  ui.createMenu('PT.GmailRules')
       .addItem('Execute for Unprocessed', 'ExecuteForUnprocessed')
       .addItem('Execute for Inbox', 'ExecuteForInbox')
+      .addItem('Execute for Inbox after vacations', 'ExecuteForInboxAfterVacations')
       .addSeparator()
-      .addItem('Set up and start auto processing', 'configureTriggers')
-      .addSeparator()
-      .addItem('Stop automatic processing', 'removeTriggers')
+      .addItem('Doing nothing', 'dd')
       .addSeparator()
       .addSubMenu(
           ui.createMenu('Debug')
