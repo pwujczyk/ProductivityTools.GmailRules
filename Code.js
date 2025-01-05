@@ -33,12 +33,11 @@ function craeteRequiredLabels() {
   var labels = [packetName, unprocessed]
   labels.forEach((label) => {
     GmailApp.createLabel(label);
-
   })
 }
 
-function ExecuteScript(threads) {
-  var configuration = LoadConfiguration();
+function ExecuteScript(threads, configuration) {
+
 
   var log = ""
   for (var i = 0; i < threads.length; i++) {
