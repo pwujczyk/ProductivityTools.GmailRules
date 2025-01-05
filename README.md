@@ -42,7 +42,7 @@ C:\Users\pwujczyk\AppData\Roaming\npm\clasp.cmd pull
 
 git
 ```
-cd C:\windows\users\pwujczyk\.ssh
+cd C:\users\pwujczyk\.ssh
 ssh-add.exe .\id_rsa
 
 ```
