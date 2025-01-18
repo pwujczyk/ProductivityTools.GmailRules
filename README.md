@@ -14,7 +14,11 @@
 Google App Script that allows to filter gmail emails in more flexible way. 
 <!--more-->
 
-## How it is working
+## How to make it working
+
+In Gmail rules one rule needs to be added:
+
+![](Images/20250124190157.png)
 
 Google sheet should contain columns 
 - Mask - pattern which we will compare the subject of the thread
@@ -28,9 +32,14 @@ Google sheet should contain columns
   - Delete
 - Label
 
+![](Images/2023-03-14-16-24-27.png)
+
+
 ## Important
-- sheet needs to be named "Daily"
+Script supports two Google Sheets 
+- Daily 
+- Vacations 
+Both of them could have different rules defined
   
 
-![](Images/2023-03-14-16-24-27.png)
 
