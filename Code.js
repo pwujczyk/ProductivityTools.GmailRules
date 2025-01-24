@@ -7,29 +7,37 @@ function doGet() {
   ExecuteForUnprocessed()
 }
 
+function ExecuteForInboxAfterVacations(){
+  craeteRequiredLabels();
+  var threads = GmailApp.getInboxThreads();
+  var configuration = LoadConfiguration("Vacations");
+  ExecuteScript(threads,configuration);
+}
+
 
 function ExecuteForUnprocessed() {
   craeteRequiredLabels();
   var threads = getUnprocessedThreads();
-  ExecuteScript(threads);
+    var configuration = LoadConfiguration("Daily");
+  ExecuteScript(threads,configuration);
 }
 
 function ExecuteForInbox() {
   craeteRequiredLabels();
   var threads = GmailApp.getInboxThreads();
-  ExecuteScript(threads);
+    var configuration = LoadConfiguration("Daily");
+  ExecuteScript(threads,configuration);
 }
 
 function craeteRequiredLabels() {
   var labels = [packetName, unprocessed]
   labels.forEach((label) => {
     GmailApp.createLabel(label);
-
   })
 }
 
-function ExecuteScript(threads) {
-  var configuration = LoadConfiguration();
+function ExecuteScript(threads, configuration) {
+
 
   var log = ""
   for (var i = 0; i < threads.length; i++) {
@@ -52,11 +60,11 @@ function getUnprocessedThreads() {
   return threads;
 }
 
-function LoadConfiguration() {
+function LoadConfiguration(sheetName) {
   //var configuration = SpreadsheetApp.openById("1-qb1wmRiDWJTq5n5T3ItkWJmHjU-BhGYFe9e439MFtc");
   var configuration = SpreadsheetApp.getActiveSpreadsheet();
   //var vacations = configuration.getSheetByName("Vacations");
-  var daily = configuration.getSheetByName("Daily");
+  var daily = configuration.getSheetByName(sheetName);
   var SheetPlaces = daily;
 
   var data = SheetPlaces.getDataRange().getValues();
